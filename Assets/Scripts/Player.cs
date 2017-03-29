@@ -3,15 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    float kSpeed = 3.0f;
+    public GameObject bullet;
+    float kSpeed = 4.0f;
+    float shotFreq,shotCnt;
+
 
 	// Use this for initialization
 	void Start () {
-		
+        shotFreq = 10.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        PlayerMove();
+        shotCnt++;
+        Shot();
+    }
+
+    void Shot() {
+        if (Input.GetKey(KeyCode.Space) && shotCnt % shotFreq == 0) {
+            BulletCreate(0, 0, 4.0f);
+        }
+    }
+
+    void BulletCreate(float dx, float dy,float speed) {
+        GameObject obj = Instantiate(bullet, new Vector2(transform.position.x + dx, transform.position.y + dy), Quaternion.identity);
+        obj.GetComponent<Rigidbody2D>().velocity = obj.transform.right.normalized * speed;
+    }
+
+    void PlayerMove() {
         float x = Input.GetAxisRaw("Horizontal") * 1.7f;
         float y = Input.GetAxisRaw("Vertical");
         Vector2 direction = new Vector2(x, y).normalized;
