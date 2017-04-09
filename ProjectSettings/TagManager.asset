@@ -56,3 +56,6 @@ TagManager:
   - name: EnemyBullet
     uniqueID: 3834995119
     locked: 0
+  - name: UI
+    uniqueID: 2488640139
+    locked: 0
