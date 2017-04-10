@@ -1,0 +1,8 @@
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Title : MonoBehaviour {
+    public void SceneChange() {
+        SceneManager.LoadScene("main");
+    }
+}
