@@ -135,6 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e454f94cb2ca5e498dedf6f4937032f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabs:
+    enemy: {fileID: 1067922000861458, guid: 4b84de28ea1a34d6eb81e25264b4b42e, type: 2}
 --- !u!4 &656241325
 Transform:
   m_ObjectHideFlags: 0
@@ -188,7 +190,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 11, y: 6}
+  m_Size: {x: 12, y: 6}
   m_EdgeRadius: 0
 --- !u!4 &707180908
 Transform:
@@ -479,7 +481,7 @@ Transform:
   m_GameObject: {fileID: 1448766637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -496,3 +498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1920921360713224, guid: 009137c521b9d0b46837bbd88bcb7897, type: 2}
+  HP: 0
+  maxHP: 0
+  power: 0
+  atk: 0
