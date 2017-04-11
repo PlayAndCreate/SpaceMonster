@@ -24,17 +24,6 @@ public class EnemyBullet : MonoBehaviour {
     void Start() {
         PlayerObj = GameObject.FindGameObjectWithTag("Player");
         player = PlayerObj.GetComponent<Player>();
-        switch (type) {
-            case "fixedBullet":
-                GetComponent<Rigidbody2D>().velocity = transform.up.normalized * kSpeed;
-                break;
-            case "aimBullet":
-
-                break;
-            case "machineGun":
-                GetComponent<Rigidbody2D>().velocity = transform.up.normalized * 4.0f;
-                break;
-        }
     }
 
     // Update is called once per frame

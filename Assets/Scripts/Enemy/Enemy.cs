@@ -28,16 +28,10 @@ public class Enemy : EnemyBase {
             switch (type) {
                 case "Enemy1":
                 case "Enemy2": {
-                        var bullet1 = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, 90)) as GameObject;
+                        var bullet1 = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
                         bullet1.GetComponent<EnemyBullet>().Create();
+                        bullet1.GetComponent<Rigidbody2D>().velocity = -transform.right.normalized * 2; ;
                         break;
-                        /*
-                        var bullet2 = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, 180)) as GameObject;
-                        bullet2.GetComponent<EnemyBullet>().Create();
-                        var bullet3 = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, 215)) as GameObject;
-                        bullet3.GetComponent<EnemyBullet>().Create();
-                        break;
-*/
                     }
             }
         }
@@ -68,9 +62,14 @@ public class Enemy : EnemyBase {
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        var targetTag = other.gameObject.tag;
-        if (targetTag == "Player") {
-            hp -= 50;
+        switch (other.gameObject.tag) {
+            case "Player":
+                hp -= 50;
+                break;
+            case "PlayerBullet":
+                hp -= 10;
+                Destroy(other.gameObject);
+                break;
         }
     }
 }
