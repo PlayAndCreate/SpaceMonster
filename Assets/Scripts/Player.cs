@@ -8,9 +8,17 @@ public class Player : MonoBehaviour {
     float shotFreq,shotCnt;
 
 
+    public static int score;
+
+
+    public int HP, maxHP;
+    public int power, atk;
+
+
 	// Use this for initialization
 	void Start () {
         shotFreq = 10.0f;
+        power = 1;
 	}
 	
 	// Update is called once per frame
@@ -52,5 +60,9 @@ public class Player : MonoBehaviour {
         pos.y = Mathf.Clamp(pos.y, min.y, max.y);
         // 制限をかけた値をプレイヤーの位置とする
         transform.position = pos;
+    }
+
+    public void ScoreUP() {
+        score += 10;
     }
 }
