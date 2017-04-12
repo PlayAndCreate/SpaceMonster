@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61423318616884452}
   - component: {fileID: 50843329757072880}
   m_Layer: 9
-  m_Name: zako1 1
+  m_Name: enemy1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
