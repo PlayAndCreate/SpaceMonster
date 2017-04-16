@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 
 public class EnemyDataLoad : MonoBehaviour {
     const int kEnemyAll = 4;//敵のすべての数
@@ -9,6 +10,10 @@ public class EnemyDataLoad : MonoBehaviour {
 
     public GameObject enemyController;
     EnemyController enemyControll;
+
+
+    List<string> EnemyData;
+    Dictionary<string, int> enemyName;
 
     // Use this for initialization
     void Start() {
@@ -34,13 +39,27 @@ public class EnemyDataLoad : MonoBehaviour {
 
         string[] EnemyList = EnemyCSV.Split('\n');
         var header = EnemyList[0].Split(',');
+        int i = 3;//ヘッダー、説明部分を飛ばす
+        int index = 0;//敵のデータを入れる配列の添字
+        while(true){
+            if(EnemyList[i] == ""){
+                Debug.Log(EnemyList[i] + " is null");
+                break;
+            }
+            if (EnemyList[i] == "stage" + (i-1)){
+                i += 1;
+                var EnemyDataCol = EnemyList[i].Split(',');
 
-        for (int i = 0; i < 43; i++) {
-            var EnemyDataCol = EnemyList[i + 1].Split(',');//ヘッダーを飛ばす
-            Debug.LogWarningFormat(i+":{0}",EnemyDataCol);
-            string name = EnemyDataCol[0];
+            }
+            if(EnemyList[i] == "end"){
+                i += 1;
+                index += 1;
+            }
+
+            Debug.LogWarningFormat("" + EnemyList[i]);
             //enemyControll.Freq[name] = int.Parse(EnemyDataCol[1]);
             //enemyControll.Attack[name] = int.Parse(EnemyDataCol[2]);
+            i++;
         }
         return true;
     }
