@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     public GameObject bullet;
-    float kSpeed = 4.0f;
+    float kSpeed = 3.0f;
     float shotFreq,shotCnt;
 
-
     public static int score;
-
-
     public int HP, maxHP;
     public int power, atk;
-
 
 	// Use this for initialization
 	void Start () {
@@ -30,7 +26,7 @@ public class Player : MonoBehaviour {
 
     void Shot() {
         if (Input.GetKey(KeyCode.Space) && shotCnt % shotFreq == 0) {
-            BulletCreate(0, 0, 4.0f);
+            BulletCreate(0, 0, 6.0f);
         }
     }
 

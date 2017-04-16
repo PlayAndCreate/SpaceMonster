@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         cnt++;
-        EncountEnemy1(Freq["enemy1"],30,1);
+        EncountEnemy1(Freq["enemy1"],80,1);
     }
 
     /// <summary>
