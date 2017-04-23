@@ -118,7 +118,7 @@ public class EnemyDataLoad : MonoBehaviour {
         string EnemyCSV = ((TextAsset)Resources.Load(filePath, typeof(TextAsset))).text;
         string[] EnemyList = EnemyCSV.Split('\n');
         var header = EnemyList[0].Split(',');
-        int i = 0,index=0;//ヘッダー、説明部分を飛ばす 敵のデータを入れる配列の添字
+        int i = 0, index = 0;//ヘッダー、説明部分を飛ばす 敵のデータを入れる配列の添字
         while (true) {
             Debug.Log("i = " + i);
             if (EnemyList[i] == "") {
@@ -141,12 +141,33 @@ public class EnemyDataLoad : MonoBehaviour {
 
     bool Load(string filePath) {//上のコードがわかりにくいので新しく関数を書いている2
         string EnemyCSV = ((TextAsset)Resources.Load(filePath, typeof(TextAsset))).text;
-    string[] EnemyList = EnemyCSV.Split('\n');
-    var header = EnemyList[0].Split(',');
-    int i = 0, index = 0;//ヘッダー、説明部分を飛ばす 敵のデータを入れる配列の添字
-        while (EnemyList[i] != "") {
-            Debug.Log("");
+        var EnemyList = EnemyCSV.Split('\n');
+        var header = EnemyList[0].Split(',');
+        int i = 0, index = 0;//ヘッダー、説明部分を飛ばす 敵のデータを入れる配列の添字
+
+        foreach (var str in EnemyList) {
+            Debug.LogWarning(str);
         }
+
+        while (true) {
+            if (EnemyList[i] == "") {
+                break;
+            }
+            Debug.LogFormat("first EnemyList[{0}] = {1} , index = {2}", i, EnemyList[i], index);
+            if (EnemyList[i] == "stage" + (index + 1)) {
+                Debug.Log("line is " + (i + 1) + " , string = " + EnemyList[i]);
+                i++;
+                Debug.Log("stage: next string = " + EnemyList[i]);
+            }
+            if (EnemyList[i] == "end") {
+                index++;
+                i++;
+                Debug.Log("end: next string = " + EnemyList[i]);
+            }
+            i++;
+            Debug.LogFormat("second EnemyList[{0}] = {1} , index = {2}",i,EnemyList[i], index);
+        }
+        Debug.Log("end of file,line is " + i);
         return true;
     }
 }
