@@ -6,6 +6,7 @@ public class Enemy : EnemyBase {
     // Use this for initialization
     public GameObject Hpbar;
     Slider slider;
+    int shotSpeed;
     public override void Start() {
         Init();
         pos = transform.position;
@@ -19,6 +20,8 @@ public class Enemy : EnemyBase {
         //slider.maxValue = maxHP;
 
         //shotInterval = Random.Range(50,1+90);
+        shotSpeed = Random.Range(2, 4);
+
     }
     public int debugShotInterval;
 
@@ -30,7 +33,7 @@ public class Enemy : EnemyBase {
                 case "Enemy2": {
                         var bullet1 = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
                         bullet1.GetComponent<EnemyBullet>().Create();
-                        bullet1.GetComponent<Rigidbody2D>().velocity = -transform.right.normalized * 2; ;
+                        bullet1.GetComponent<Rigidbody2D>().velocity = -transform.right.normalized * shotSpeed;
                         break;
                     }
             }
