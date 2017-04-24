@@ -50,13 +50,11 @@ public class EnemyDataLoad : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         Debug.LogWarning("enemy list");
-        for (int i = 0; i <enemyDataList.Count;i++){
-            Debug.LogWarning("Stage"+(i+1));
+        for (int i = 0; i < enemyDataList.Count; i++) {
+            Debug.LogWarning("Stage" + (i + 1));
             Debug.Log("name,attack,hp,freq,score");
             var KeyList = new List<string>(enemyDataList[i].enemyDataDict.Keys);
             foreach (var key in KeyList) {
-                Debug.LogFormat("{0},{1},{2},{3},{4}", key,enemyDataList[i].enemyDataDict[key].attack,enemyDataList[i].enemyDataDict[key].hp,
-                                enemyDataList[i].enemyDataDict[key].freq,enemyDataList[i].enemyDataDict[key].score);
             }
         }
     }
@@ -86,7 +84,6 @@ public class EnemyDataLoad : MonoBehaviour {
                 i++;
                 while (true) {
                     var EnemyDataCol = EnemyList[i].Split(',');
-                    enemyDataList[index].enemyDataDict.Add(EnemyDataCol[0], new EnemyData(int.Parse(EnemyDataCol[1]), int.Parse(EnemyDataCol[2]), 
                                                                                           int.Parse(EnemyDataCol[3]), int.Parse(EnemyDataCol[4])));
                     i++;
                     if (EnemyList[i] == "end") {
@@ -95,9 +92,7 @@ public class EnemyDataLoad : MonoBehaviour {
                     }
                 }
             }
-            i++;
         }
-        Debug.Log("end of file,line is " + i);
         return true;
     }
 }
