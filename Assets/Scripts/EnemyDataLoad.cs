@@ -74,10 +74,6 @@ public class EnemyDataLoad : MonoBehaviour {
         var header = EnemyList[0].Split(',');
         int i = 0, index = 0;//ヘッダー、説明部分を飛ばす 敵のデータを入れる配列の添字
 
-        /*foreach (var str in EnemyList) {
-            Debug.LogWarning(str);
-        }*/
-
         while (true) {
             if (EnemyList[i] == "") {
                 break;
