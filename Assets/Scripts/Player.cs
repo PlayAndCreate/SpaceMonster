@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
     float kSpeed = 3.0f;
     float shotFreq,shotCnt;
 
+    GameObject explosion;
     public static int score;
     public int HP, maxHP;
     public int power, atk;
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour {
 	void Start () {
         shotFreq = 10.0f;
         power = 1;
+        explosion = Resources.Load("Prefabs/explosion_32") as GameObject;
 	}
 	
 	// Update is called once per frame
@@ -60,5 +62,16 @@ public class Player : MonoBehaviour {
 
     public void ScoreUP() {
         score += 10;
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        switch (other.gameObject.tag) {
+            case "Enemy":
+                break;
+            case "EnemyBullet":
+                Instantiate(explosion, other.gameObject.transform.position, Quaternion.identity);
+                Destroy(other.gameObject);
+                break;
+        }
     }
 }
