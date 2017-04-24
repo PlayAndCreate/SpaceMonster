@@ -55,6 +55,8 @@ public class EnemyDataLoad : MonoBehaviour {
             Debug.Log("name,attack,hp,freq,score");
             var KeyList = new List<string>(enemyDataList[i].enemyDataDict.Keys);
             foreach (var key in KeyList) {
+                Debug.LogFormat("{0},{1},{2},{3},{4}", key, enemyDataList[i].enemyDataDict[key].attack, enemyDataList[i].enemyDataDict[key].hp,
+                                enemyDataList[i].enemyDataDict[key].freq, enemyDataList[i].enemyDataDict[key].score);
             }
         }
     }
@@ -84,15 +86,23 @@ public class EnemyDataLoad : MonoBehaviour {
                 i++;
                 while (true) {
                     var EnemyDataCol = EnemyList[i].Split(',');
+                    enemyDataList[index].enemyDataDict.Add(EnemyDataCol[0], new EnemyData(int.Parse(EnemyDataCol[1]), int.Parse(EnemyDataCol[2]),
                                                                                           int.Parse(EnemyDataCol[3]), int.Parse(EnemyDataCol[4])));
                     i++;
+                    if (i > 41) {
+                        break;
+                    }
                     if (EnemyList[i] == "end") {
                         index++;
                         break;
                     }
                 }
             }
+            if (i < 42) {
+                i++;
+            }
         }
+        Debug.Log("end of file,line is " + (i + 1));
         return true;
     }
 }
