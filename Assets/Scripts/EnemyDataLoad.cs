@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
@@ -84,12 +84,10 @@ public class EnemyDataLoad : MonoBehaviour {
                     var enemyDataCol = enemyData[i].Split(',');
                     enemyDataList[index].enemyDataDict.Add(enemyDataCol[0], new EnemyData(int.Parse(enemyDataCol[1]), int.Parse(enemyDataCol[2]),
                                                                                   int.Parse(enemyDataCol[3]), int.Parse(enemyDataCol[4])));
-                    if(enemyData[i+1] == "EOF"){
-                        Debug.Log("EOF");
+                    if (enemyData[i + 1] == "EOF") {//EOFの文字があれば
                         break;
                     }
                     i++;
-                    Debug.Log("93:i = " + i);
                     if (enemyData[i] == "end") {
                         index++;
                         break;
