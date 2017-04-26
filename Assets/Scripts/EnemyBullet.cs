@@ -32,9 +32,12 @@ public class EnemyBullet : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) {
         var targetTag = other.gameObject.tag;
-        if (targetTag == "Player") {
-            player.HP -= atk;
-            Destroy(gameObject);
+        var obj = other.gameObject;
+        switch (targetTag) {
+            case "Player":
+                player.HP -= atk;
+                Destroy(gameObject);
+                break;
         }
     }
 }

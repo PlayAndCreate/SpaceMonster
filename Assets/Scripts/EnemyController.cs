@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour {
     void Start() {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
-        AddEnemyData("enemy1", 80, 20);
+        AddEnemyData("enemy1", 60, 20);
 
         foreach (KeyValuePair<string, int> pair in Freq) {
             Debug.Log(pair.Key + " freq is " + pair.Value);
@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         cnt++;
-        EncountEnemy1(Freq["enemy1"],80,1);
+        EncountEnemy1(Freq["enemy1"], 80 , 1, Random.Range(1.0f, 3.0f));
     }
 
     /// <summary>
@@ -65,6 +65,7 @@ public class EnemyController : MonoBehaviour {
             } else if (mNum == 1) {
                 isShot = true;
             }
+            tempHP = 20;
             switch (player.power) {
                 case 1:
                     tempHP = 50;
