@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -65,7 +65,7 @@ public class EnemyController : MonoBehaviour {
             } else if (mNum == 1) {
                 isShot = true;
             }
-            tempHP = 200;
+            tempHP = 20;
             switch (player.power) {
                 case 1:
                     tempHP = 50;

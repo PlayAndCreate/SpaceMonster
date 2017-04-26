@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
     public GameObject bullet;
     float kSpeed = 3.0f;
     float shotFreq,shotCnt;
-    float shotSpeed = 3.0f;
+    float shotSpeed = 4.0f;
 
     GameObject explosion;
     public static int score;
@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        shotFreq = 15.0f;
+        shotFreq = 10.0f;
         power = 8;
         explosion = Resources.Load("Prefabs/explosion_32") as GameObject;
 	}
