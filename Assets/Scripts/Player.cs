@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         shotFreq = 10.0f;
-        power = 8;
+        power = 1;
         explosion = Resources.Load("Prefabs/explosion_32") as GameObject;
 	}
 	
@@ -29,10 +29,6 @@ public class Player : MonoBehaviour {
 
     void Shot() {
         if (Input.GetKey(KeyCode.Space) && (int)(shotCnt % shotFreq) == 0) {
-            for (int i = 0; i < 360; i += 45) {
-                BulletCreate(0, 0, shotSpeed, i);
-            }
-            /*
             if (power >=8) {
                 BulletCreate(0, 0, shotSpeed, 180);
             }
@@ -57,7 +53,6 @@ public class Player : MonoBehaviour {
             if (power >=1) {
                 BulletCreate(0, 0, shotSpeed, 0);
             }
-            */
         }
     }
 
