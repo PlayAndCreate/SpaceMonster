@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
@@ -75,36 +75,28 @@ public class EnemyDataLoad : MonoBehaviour {
         int index = 0;// 敵のデータを入れる配列の添字
 
         while (true) {
-            if (enemyData[i] == null) {
+            if (enemyData[i] == "EOF") {
                 break;
             }
             if (enemyData[i] == "stage" + (index + 1)) {
                 i++;
                 while (true) {
-                    Debug.Log("i = " + i + "index = " + index);
                     var enemyDataCol = enemyData[i].Split(',');
                     enemyDataList[index].enemyDataDict.Add(enemyDataCol[0], new EnemyData(int.Parse(enemyDataCol[1]), int.Parse(enemyDataCol[2]),
-                                                                                          int.Parse(enemyDataCol[3]), int.Parse(enemyDataCol[4])));
+                                                                                  int.Parse(enemyDataCol[3]), int.Parse(enemyDataCol[4])));
+                    if(enemyData[i+1] == "EOF"){
+                        Debug.Log("EOF");
+                        break;
+                    }
                     i++;
-                    /*if (i > 41) {
-                        break;
-                    }
-                    */
-                    if(enemyData[i] == null){
-                        break;
-                    }
+                    Debug.Log("93:i = " + i);
                     if (enemyData[i] == "end") {
-                            index++;
-                            break;
-                        }
+                        index++;
+                        break;
+                    }
                 }
             }
             i++;
-            /*
-            if (i < 42) {
-                i++;
-            }
-            */
         }
         Debug.Log("end of file,line is " + (i + 1));
         return true;
