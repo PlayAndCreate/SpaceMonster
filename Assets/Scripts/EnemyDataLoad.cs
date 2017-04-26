@@ -4,7 +4,6 @@ using System.Text;
 using System.Collections.Generic;
 
 public class EnemyDataLoad : MonoBehaviour {
-    const int kEnemyAll = 4;//敵のすべての数
     public bool isDebug = false;
     public bool isLoad = true;
 
@@ -69,34 +68,43 @@ public class EnemyDataLoad : MonoBehaviour {
         return true;
     }
     bool Load(string filePath) {//上のコードがわかりにくいので新しく関数を書いている2
-        string EnemyCSV = ((TextAsset)Resources.Load(filePath, typeof(TextAsset))).text;
-        var EnemyList = EnemyCSV.Split('\n');
-        var header = EnemyList[0].Split(',');
-        int i = 0, index = 0;//ヘッダー、説明部分を飛ばす 敵のデータを入れる配列の添字
+        string csvEnemyData = ((TextAsset)Resources.Load(filePath, typeof(TextAsset))).text;
+        string[] enemyData = csvEnemyData.Split('\n');
+        var header = enemyData[0].Split(',');//説明部分
+        int i = 0; //読み込んでいるcsvの行を入れる
+        int index = 0;// 敵のデータを入れる配列の添字
 
         while (true) {
-            if (EnemyList[i] == "") {
+            if (enemyData[i] == null) {
                 break;
             }
-            if (EnemyList[i] == "stage" + (index + 1)) {
+            if (enemyData[i] == "stage" + (index + 1)) {
                 i++;
                 while (true) {
-                    var EnemyDataCol = EnemyList[i].Split(',');
-                    enemyDataList[index].enemyDataDict.Add(EnemyDataCol[0], new EnemyData(int.Parse(EnemyDataCol[1]), int.Parse(EnemyDataCol[2]),
-                                                                                          int.Parse(EnemyDataCol[3]), int.Parse(EnemyDataCol[4])));
+                    Debug.Log("i = " + i + "index = " + index);
+                    var enemyDataCol = enemyData[i].Split(',');
+                    enemyDataList[index].enemyDataDict.Add(enemyDataCol[0], new EnemyData(int.Parse(enemyDataCol[1]), int.Parse(enemyDataCol[2]),
+                                                                                          int.Parse(enemyDataCol[3]), int.Parse(enemyDataCol[4])));
                     i++;
-                    if (i > 41) {
+                    /*if (i > 41) {
                         break;
                     }
-                    if (EnemyList[i] == "end") {
-                        index++;
+                    */
+                    if(enemyData[i] == null){
                         break;
                     }
+                    if (enemyData[i] == "end") {
+                            index++;
+                            break;
+                        }
                 }
             }
+            i++;
+            /*
             if (i < 42) {
                 i++;
             }
+            */
         }
         Debug.Log("end of file,line is " + (i + 1));
         return true;
