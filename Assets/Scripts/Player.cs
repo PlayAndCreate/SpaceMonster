@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
     public GameObject bullet;
     float kSpeed = 3.0f;
     float shotFreq,shotCnt;
+    float shotSpeed = 3.0f;
 
     GameObject explosion;
     public static int score;
@@ -14,8 +15,8 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        shotFreq = 10.0f;
-        power = 1;
+        shotFreq = 15.0f;
+        power = 8;
         explosion = Resources.Load("Prefabs/explosion_32") as GameObject;
 	}
 	
@@ -27,13 +28,41 @@ public class Player : MonoBehaviour {
     }
 
     void Shot() {
-        if (Input.GetKey(KeyCode.Space) && shotCnt % shotFreq == 0) {
-            BulletCreate(0, 0, 6.0f);
+        if (Input.GetKey(KeyCode.Space) && (int)(shotCnt % shotFreq) == 0) {
+            for (int i = 0; i < 360; i += 45) {
+                BulletCreate(0, 0, shotSpeed, i);
+            }
+            /*
+            if (power >=8) {
+                BulletCreate(0, 0, shotSpeed, 180);
+            }
+            if (power >=7) {
+                BulletCreate(0, 0, shotSpeed, -135);
+            }
+            if (power >=6) {
+                BulletCreate(0, 0, shotSpeed, 135);
+            }
+            if (power >=5) {
+                BulletCreate(0, 0, shotSpeed, -90);
+            }
+            if (power >=4) {
+                BulletCreate(0, 0, shotSpeed, 90);
+            }
+            if (power >=3) {
+                BulletCreate(0, 0, shotSpeed, -45);
+            }
+            if (power >=2) {
+                BulletCreate(0, 0, shotSpeed, 45);
+            }
+            if (power >=1) {
+                BulletCreate(0, 0, shotSpeed, 0);
+            }
+            */
         }
     }
 
-    void BulletCreate(float dx, float dy,float speed) {
-        GameObject obj = Instantiate(bullet, new Vector2(transform.position.x + dx, transform.position.y + dy), Quaternion.identity);
+    void BulletCreate(float dx, float dy, float speed, float angleZ) {
+        GameObject obj = Instantiate(bullet, new Vector2(transform.position.x + dx, transform.position.y + dy), Quaternion.Euler(0,0,angleZ));
         obj.GetComponent<Rigidbody2D>().velocity = obj.transform.right.normalized * speed;
     }
 
@@ -69,7 +98,9 @@ public class Player : MonoBehaviour {
             case "Enemy":
                 break;
             case "EnemyBullet":
-                Instantiate(explosion, other.gameObject.transform.position, Quaternion.identity);
+                GameObject explode = Instantiate(explosion, other.gameObject.transform.position, Quaternion.identity);
+                explode.GetComponent<Transform>().localScale = new Vector2(2.0f * 0.7f, 2.0f * 0.7f);
+
                 Destroy(other.gameObject);
                 break;
         }

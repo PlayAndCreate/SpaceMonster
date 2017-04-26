@@ -6,7 +6,8 @@ public class Enemy : EnemyBase {
     // Use this for initialization
     public GameObject Hpbar;
     Slider slider;
-    int shotSpeed;
+    float shotSpeed;
+    Vector2 playerPos;
     public override void Start() {
         Init();
         pos = transform.position;
@@ -20,7 +21,7 @@ public class Enemy : EnemyBase {
         //slider.maxValue = maxHP;
 
         //shotInterval = Random.Range(50,1+90);
-        shotSpeed = Random.Range(2, 4);
+        shotSpeed = speed + 1.0f;
 
     }
     public int debugShotInterval;
@@ -31,17 +32,21 @@ public class Enemy : EnemyBase {
             switch (type) {
                 case "Enemy1":
                 case "Enemy2": {
-                        var bullet1 = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+                        var angle = Mathf.Atan2(transform.position.y - playerPos.y,
+                                                transform.position.x - playerPos.x);
+                        angle = angle * 180 / Mathf.PI;
+                        //Debug.Log("angle = "+angle);
+                        var bullet1 = Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, angle)) as GameObject;
                         bullet1.GetComponent<EnemyBullet>().Create();
-                        bullet1.GetComponent<Rigidbody2D>().velocity = -transform.right.normalized * shotSpeed;
+                        bullet1.GetComponent<Rigidbody2D>().velocity = -bullet1.transform.right.normalized * shotSpeed;
                         break;
                     }
             }
         }
     }
-    
 
     void Move() {
+        playerPos = GameObject.FindWithTag("Player").GetComponent<Player>().transform.position;
         pos.x -= speed * Time.deltaTime;
     }
 
@@ -64,14 +69,17 @@ public class Enemy : EnemyBase {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
-        switch (other.gameObject.tag) {
+    public void OnTriggerEnter2D(Collider2D other) {
+        GameObject obj = other.gameObject;
+        switch (obj.tag) {
             case "Player":
                 hp -= 50;
                 break;
             case "PlayerBullet":
                 hp -= 10;
-                Destroy(other.gameObject);
+                GameObject explode = Instantiate(explosion, obj.transform.position, Quaternion.identity);
+                Destroy(obj);
+                explode.GetComponent<Transform>().localScale=new Vector2(2.0f * 0.7f, 2.0f * 0.7f);
                 break;
         }
     }
