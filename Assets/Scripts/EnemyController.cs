@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour {
     void Start() {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
-        AddEnemyData("enemy1", 60, 20);
+        AddEnemyData("enemy1", 80, 20);
 
         foreach (KeyValuePair<string, int> pair in Freq) {
             Debug.Log(pair.Key + " freq is " + pair.Value);
