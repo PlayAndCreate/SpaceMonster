@@ -13,8 +13,4 @@ public class Meteor : MonoBehaviour {
 	void Update () {
 		
 	}
-
-    public void OnTriggerEnter2D(Collider2D other) {
-        string targetTag =  other.gameObject.tag;
-    }
 }
