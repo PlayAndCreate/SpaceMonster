@@ -79,7 +79,7 @@ public class Enemy : EnemyBase {
                 hp -= 10;
                 GameObject explode = Instantiate(explosion, obj.transform.position, Quaternion.identity);
                 Destroy(obj);
-                explode.GetComponent<Transform>().localScale=new Vector2(2.0f * 0.7f, 2.0f * 0.7f);
+                explode.GetComponent<Transform>().localScale = new Vector2(2.0f * 0.7f, 2.0f * 0.7f);
                 break;
         }
     }
