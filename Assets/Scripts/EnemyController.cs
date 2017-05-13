@@ -36,10 +36,10 @@ public class EnemyController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        setEnemyPower();
+        SetEnemyPower();
         cnt++;
-        EncountEnemy1(Freq["enemy1"], 120, 1, Random.Range(1.0f, 3.0f));
-        EncountMeteor(60, 1);
+        EncountEnemy1(Freq["enemy1"], 120+Random.Range(-20, 20), 1, Random.Range(1.0f, 3.0f));
+        EncountMeteor(200, 1);
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    void setEnemyPower(){
+    void SetEnemyPower(){
         switch (player.power) {
             case 1:
                 Freq["enemy1"] = 70;
