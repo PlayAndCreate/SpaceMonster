@@ -107,6 +107,7 @@ public class Player : MonoBehaviour {
                 Destroy(other.gameObject);
                 break;
                 case "Meteor":
+                case "Item":
                 power += 1;
                 Destroy(other.gameObject);
                 break;
