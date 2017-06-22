@@ -21,7 +21,7 @@ public class Enemy : EnemyBase {
         //slider.maxValue = maxHP;
 
         //shotInterval = Random.Range(50,1+90);
-        shotSpeed = speed + 1.0f;
+        shotSpeed = speed + Random.Range(1.0f, 3.0f);
 
     }
     public int debugShotInterval;
@@ -58,6 +58,9 @@ public class Enemy : EnemyBase {
         if (hp <= 0) {
             player.ScoreUP();
             Instantiate(explosion, transform.position, Quaternion.identity);
+            GameObject item = Instantiate(itemPrefab, transform.position, Quaternion.identity);
+            item.GetComponent<Rigidbody2D>().velocity = new Vector2(-2.0f,0);
+
             Destroy(gameObject);
         }
         Shot();
@@ -79,7 +82,7 @@ public class Enemy : EnemyBase {
                 hp -= 10;
                 GameObject explode = Instantiate(explosion, obj.transform.position, Quaternion.identity);
                 Destroy(obj);
-                explode.GetComponent<Transform>().localScale=new Vector2(2.0f * 0.7f, 2.0f * 0.7f);
+                explode.GetComponent<Transform>().localScale = new Vector2(2.0f * 0.7f, 2.0f * 0.7f);
                 break;
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
     Player player;
 
-    int cnt=0;
+    int cnt = 0;
 
     //敵出現頻度と攻撃力の連想配列
     public Dictionary<string, int> Freq = new Dictionary<string, int>();
@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour {
     [System.Serializable]
     public class Prefabs {
         public GameObject enemy;
+        public GameObject meteor;
     }
     public Prefabs prefabs;
 
@@ -26,7 +27,7 @@ public class EnemyController : MonoBehaviour {
     void Start() {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
-        AddEnemyData("enemy1", 60, 20);
+        AddEnemyData("enemy1", 120, 20);
 
         foreach (KeyValuePair<string, int> pair in Freq) {
             Debug.Log(pair.Key + " freq is " + pair.Value);
@@ -35,8 +36,10 @@ public class EnemyController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        SetEnemyPower();
         cnt++;
-        EncountEnemy1(Freq["enemy1"], 80 , 1, Random.Range(1.0f, 3.0f));
+        EncountEnemy1(Freq["enemy1"], 120+Random.Range(-20, 20), 1, Random.Range(1.0f, 3.0f));
+        EncountMeteor(200, 1);
     }
 
     /// <summary>
@@ -44,7 +47,7 @@ public class EnemyController : MonoBehaviour {
     /// </summary>
     class EncountPosType {
         public GameObject Random(GameObject prefab, float posY_1, float posY_2, float posX = 7.0f) {
-            var obj = Instantiate(prefab, new Vector2(posX,UnityEngine.Random.Range(posY_1, posY_2)), Quaternion.identity) as GameObject;
+            var obj = Instantiate(prefab, new Vector2(posX, UnityEngine.Random.Range(posY_1, posY_2)), Quaternion.identity) as GameObject;
             return obj;
         }
     }
@@ -56,9 +59,9 @@ public class EnemyController : MonoBehaviour {
         var tempHP = 0;
         int random = 0;
         if (cnt % (freq + random) == 0) {
-            random = Random.Range(-20, 20);
-            var enemy = encountPosType.Random(prefabs.enemy, -3.5f, 3.5f);
-            var mNum = Random.Range(0, 1 + 3);
+            random = Random.Range(-40, 40);
+            GameObject enemy = encountPosType.Random(prefabs.enemy, -3.5f, 3.5f);
+            int mNum = Random.Range(0, 1 + 3);
             bool isShot = true;
             if (mNum == 0) {
                 isShot = false;
@@ -71,15 +74,52 @@ public class EnemyController : MonoBehaviour {
                     tempHP = 50;
                     break;
                 case 2:
-                    tempHP = 150;
+                    tempHP = 70;
                     break;
                 case 3:
-                    tempHP = 250;
+                    tempHP = 100;
                     break;
             }
-            var rand = Random.Range(0, 3 + 1);
-            enemy.GetComponent<Enemy>().Create("Enemy1",speed,tempHP,atk,shotInterval,isShot);
+            int rand = Random.Range(0, 3 + 1);
+            enemy.GetComponent<Enemy>().Create("Enemy1", speed, tempHP, atk, shotInterval, isShot);
+        }
+    }
+
+    void EncountMeteor(int freq, float speed) {
+        int random = 0;
+        random = Random.Range(-20, 20);
+        if (cnt % (freq + random) == 0) {
+            GameObject enemy = encountPosType.Random(prefabs.meteor, -3.5f, 3.5f);
+            enemy.GetComponent<Rigidbody2D>().velocity = -enemy.transform.right * 2.0f;
+        }
+    }
+
+    void SetEnemyPower(){
+        switch (player.power) {
+            case 1:
+                Freq["enemy1"] = 70;
+                break;
+            case 2:
+                Freq["enemy1"] = 65;
+                break;
+            case 3:
+                Freq["enemy1"] = 60;
+                break;
+            case 4:
+                Freq["enemy1"] = 55;
+                break;
+            case 5:
+                Freq["enemy1"] = 50;
+                break;
+            case 6:
+                Freq["enemy1"] = 45;
+                break;
+            case 7:
+                Freq["enemy1"] = 40;
+                break;
+            case 8:
+                Freq["enemy1"] = 35;
+                break;
         }
     }
 }
-

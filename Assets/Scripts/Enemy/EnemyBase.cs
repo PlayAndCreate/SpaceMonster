@@ -7,7 +7,7 @@ public class EnemyBase : MonoBehaviour {
     protected GameObject explosion;
 
     //public GameObject textHpPrefab;
-    //protected GameObject itemPrefab;
+    protected GameObject itemPrefab;
 
     public string type;
     public float speed;
@@ -45,7 +45,7 @@ public class EnemyBase : MonoBehaviour {
     protected void Init() {
         player= GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         explosion = Resources.Load("Prefabs/explosion_32") as GameObject;
-        //itemPrefab = Resources.Load("Prefabs/power_item") as GameObject;
+        itemPrefab = Resources.Load("Prefabs/item") as GameObject;
     }
 
     // Update is called once per frame

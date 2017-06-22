@@ -1,27 +1,32 @@
 ﻿﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
     public GameObject bullet;
     float kSpeed = 3.0f;
     float shotFreq,shotCnt;
-    float shotSpeed = 4.0f;
+    float shotSpeed = 6.0f;
 
     GameObject explosion;
     public static int score;
     public int HP, maxHP;
     public int power, atk;
 
+    public Text powerText;
+
 	// Use this for initialization
 	void Start () {
-        shotFreq = 10.0f;
-        power = 8;
+        HP = 500;
+        shotFreq = 8.0f;
+        power = 1;
         explosion = Resources.Load("Prefabs/explosion_32") as GameObject;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        powerText.text = "power : "+power;
         PlayerMove();
         shotCnt++;
         Shot();
@@ -29,35 +34,31 @@ public class Player : MonoBehaviour {
 
     void Shot() {
         if (Input.GetKey(KeyCode.Space) && (int)(shotCnt % shotFreq) == 0) {
-            for (int i = 0; i < 360; i += 45) {
-                BulletCreate(0, 0, shotSpeed, i);
-            }
-            /*
-            if (power >=8) {
+            if (power >= 8) {
                 BulletCreate(0, 0, shotSpeed, 180);
             }
-            if (power >=7) {
+            if (power >= 7) {
                 BulletCreate(0, 0, shotSpeed, -135);
             }
-            if (power >=6) {
+            if (power >= 6) {
                 BulletCreate(0, 0, shotSpeed, 135);
             }
-            if (power >=5) {
+            if (power >= 5) {
                 BulletCreate(0, 0, shotSpeed, -90);
             }
-            if (power >=4) {
+            if (power >= 4) {
                 BulletCreate(0, 0, shotSpeed, 90);
             }
-            if (power >=3) {
+            if (power >= 3) {
                 BulletCreate(0, 0, shotSpeed, -45);
             }
-            if (power >=2) {
+            if (power >= 2) {
                 BulletCreate(0, 0, shotSpeed, 45);
             }
-            if (power >=1) {
+            //powerが１以下でも弾出せるようにしました
+            //if (power >= 0) {
                 BulletCreate(0, 0, shotSpeed, 0);
-            }
-            */
+            //}
         }
     }
 
@@ -96,11 +97,18 @@ public class Player : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         switch (other.gameObject.tag) {
             case "Enemy":
+                HP -= 10;
                 break;
             case "EnemyBullet":
                 GameObject explode = Instantiate(explosion, other.gameObject.transform.position, Quaternion.identity);
                 explode.GetComponent<Transform>().localScale = new Vector2(2.0f * 0.7f, 2.0f * 0.7f);
+                power -= 1;
 
+                Destroy(other.gameObject);
+                break;
+                case "Meteor":
+                case "Item":
+                power += 1;
                 Destroy(other.gameObject);
                 break;
         }
